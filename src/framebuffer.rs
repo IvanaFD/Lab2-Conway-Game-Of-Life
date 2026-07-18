@@ -28,10 +28,23 @@ impl Framebuffer {
         raylib_thread: &mut RaylibThread,
     ){
         if let Ok(texture) = window.load_texture_from_image(raylib_thread, &self.color_buffer) {
-            
+
+            let screen_width = window.get_screen_width() as f32;
+            let screen_height = window.get_screen_height() as f32;
+
             let mut render = window.begin_drawing(raylib_thread);
 
-            render.draw_texture(&texture, 0, 0, Color::WHITE);
+            let source_rec = Rectangle::new(0.0, 0.0, self.width as f32, self.height as f32);
+            let dest_rec = Rectangle::new(0.0, 0.0, screen_width, screen_height);
+
+            render.draw_texture_pro(
+                &texture,
+                source_rec,
+                dest_rec,
+                Vector2::new(0.0, 0.0),
+                0.0,
+                Color::WHITE,
+            );
         }
 
     }
@@ -44,6 +57,7 @@ impl Framebuffer {
         self.current_color = color;
     }
 
+    #[allow(dead_code)]
     pub fn clear(&mut self) {
         self.color_buffer = Image::gen_image_color(self.width, self.height, self.background_color);
     }
@@ -55,6 +69,12 @@ impl Framebuffer {
         if x >= 0 && x < self.width && y >= 0 && y < self.height {
             self.color_buffer.draw_pixel(x, y_flipped, self.current_color);
         }
+    }
+
+    #[allow(dead_code)]
+    pub fn get_color(&mut self, x: i32, y: i32) -> Color {
+        let y_flipped = self.height - 1 - y;
+        self.color_buffer.get_color(x, y_flipped)
     }
     /*
     pub fn render_to_file(&self, file_path: &str) {

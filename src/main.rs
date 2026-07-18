@@ -41,14 +41,6 @@ fn main() {
     patterns::block(&mut grid, 50, 43);
     patterns::block(&mut grid, 50, 37);
 
-   
-    patterns::block(&mut grid, 43, 30);
-    patterns::block(&mut grid, 37, 30);
-    patterns::block(&mut grid, 40, 33);
-    patterns::block(&mut grid, 40, 27);
-
-    
-
     patterns::blinker(&mut grid, 46, 44);
     patterns::blinker(&mut grid, 54, 36);
     patterns::blinker(&mut grid, 54, 44);
@@ -58,9 +50,12 @@ fn main() {
 
     patterns::beacon(&mut grid, 25, 40);
     patterns::beacon(&mut grid, 75, 40);
-
-    // organismos que faltaban, repartidos en las esquinas/bordes libres
-    // alrededor del cluster de arriba
+   
+    patterns::block(&mut grid, 43, 30);
+    patterns::block(&mut grid, 37, 30);
+    patterns::block(&mut grid, 40, 33);
+    patterns::block(&mut grid, 40, 27);
+    
     patterns::beehive(&mut grid, 5, 5);
     patterns::loaf(&mut grid, 85, 5);
     patterns::boat(&mut grid, 5, 65);
